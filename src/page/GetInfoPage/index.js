@@ -1,25 +1,23 @@
-import React from 'react';
+import React from "react";
+import { ETH_METHOD } from "common/constants";
 
 function GetInfo() {
-  const [chainId, setChainId] = React.useState("")
-  const [account, setAccount] = React.useState("")
-  const [netVersion, setNetVersion] = React.useState("")
-  const method = {
-    getAccount: "eth_requestAccounts",
-    getChainId: "eth_chainId",
-    getNetVersion: "net_version"
-  };
+  const [chainId, setChainId] = React.useState("");
+  const [account, setAccount] = React.useState("");
+  const [netVersion, setNetVersion] = React.useState("");
+
   const getInfo = async () => {
     const { ethereum } = window;
     if (ethereum && ethereum.isMetaMask) {
       try {
-        const accounts = await ethereum.request({ method: method.getAccount });
-        const cid = await ethereum.request({ method: method.getChainId });
-        const nv = await ethereum.request({ method: method.getNetVersion });
-        setAccount(accounts?.[0])
+        const accounts = await ethereum.request({
+          method: ETH_METHOD.getAccount,
+        });
+        const cid = await ethereum.request({ method: ETH_METHOD.getChainId });
+        const nv = await ethereum.request({ method: ETH_METHOD.getNetVersion });
+        setAccount(accounts?.[0]);
         setChainId(cid);
-        setNetVersion(nv)
-        
+        setNetVersion(nv);
       } catch (e) {
         console.log(e);
       }
